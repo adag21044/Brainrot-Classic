@@ -331,6 +331,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8344369002551806668}
+  - component: {fileID: 4670625780824168505}
   m_Layer: 0
   m_Name: CardPrefab
   m_TagString: Untagged
@@ -354,6 +355,28 @@ Transform:
   - {fileID: 5150081632886883900}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4670625780824168505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163139686171101045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89a16314798817d418f30a0fd4105e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardData: {fileID: 0}
+  cardImage: {fileID: 3147431674443063726}
+  nameText: {fileID: 9187512211544684843}
+  healthText: {fileID: 8627418600249933199}
+  damageText: {fileID: 5858848304293361232}
+  typeImages:
+  - {fileID: 1075264693301447734}
+  - {fileID: 3578512802172097893}
+  - {fileID: 8953001430082269716}
+  - {fileID: 7685816688116803482}
 --- !u!1 &2776997070591733113
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,7 +411,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.163, y: -1.24}
+  m_AnchoredPosition: {x: -0.715, y: -1.24}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8714697628026349907
