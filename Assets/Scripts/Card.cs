@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "NewCard", menuName = "Card")]
 public class Card : ScriptableObject
@@ -10,6 +11,7 @@ public class Card : ScriptableObject
     public int damageMin;
     public int damageMax;
     public List<DamageType> damageType;
+    public Sprite cardSprite;
 
     public enum CardType
     {

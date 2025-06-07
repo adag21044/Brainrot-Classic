@@ -37,6 +37,11 @@ public class CardDisplay : MonoBehaviour
 
     public void UpdateCardDisplay()
     {
+        if (cardData.cardSprite != null)
+        {
+            cardImage.sprite = cardData.cardSprite;
+        }
+
         //Update the main card image color based on the first card type
         cardImage.color = cardColors[(int)cardData.cardType[0]];
 
