@@ -5,11 +5,7 @@ using UnityEngine.EventSystems;
 /// Draggable UI card that follows the mouse precisely
 /// and can be dropped onto other UI elements.
 /// </summary>
-public class DraggableCard : MonoBehaviour,
-    IPointerDownHandler,
-    IBeginDragHandler,
-    IDragHandler,
-    IEndDragHandler
+public class DraggableCard : MonoBehaviour,IPointerDownHandler,IBeginDragHandler,IDragHandler,IEndDragHandler
 {
     private RectTransform rectTransform;      // Cached RectTransform
     private RectTransform canvasRect;         // Parent canvas's RectTransform

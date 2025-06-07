@@ -98,8 +98,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 out Vector2 localPointerPosition)
                 )
             {
-                localPointerPosition /= canvas.scaleFactor; // Adjust for canvas scale
-
                 Vector3 offsetToOriginal = localPointerPosition - originalLocalPointerPosition;
                 rectTransform.localPosition = originalPanelLocalPosition + offsetToOriginal;
 
