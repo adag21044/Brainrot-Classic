@@ -21,7 +21,7 @@ public class HandManager : MonoBehaviour
     void Update()
     {
         // Update the hand visuals every frame
-        //UpdateHandVisuals();
+        UpdateHandVisuals();
     }
 
     public void AddCardToHand(Card cardData)
