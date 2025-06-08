@@ -12,6 +12,7 @@ public class Card : ScriptableObject
     public int damageMax;
     public List<DamageType> damageType;
     public Sprite cardSprite;
+    public Sprite cardBackSprite;
 
     public enum CardType
     {

@@ -10,6 +10,7 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text healthText;
     public TMP_Text damageText;
     public Image[] typeImages;
+    [SerializeField] private bool isOpen;
     private Color[] cardColors =
     {
         Color.grey,    // Fire
@@ -35,33 +36,59 @@ public class CardDisplay : MonoBehaviour
         UpdateCardDisplay();
     }
 
+    // for test
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isOpen = !isOpen;
+            UpdateCardDisplay();
+        }
+    }
+
     public void UpdateCardDisplay()
     {
-        if (cardData.cardSprite != null)
+        if (isOpen && cardData.cardSprite != null)
         {
+            // Ön yüz
             cardImage.sprite = cardData.cardSprite;
-        }
+            cardImage.color = cardColors[(int)cardData.cardType[0]];
 
-        //Update the main card image color based on the first card type
-        cardImage.color = cardColors[(int)cardData.cardType[0]];
+            nameText.gameObject.SetActive(true);
+            healthText.gameObject.SetActive(true);
+            damageText.gameObject.SetActive(true);
 
+            nameText.text = cardData.cardName;
+            healthText.text = cardData.health.ToString();
+            damageText.text = $"{cardData.damageMin} - {cardData.damageMax}";
 
-        nameText.text = cardData.cardName;
-        healthText.text = cardData.health.ToString();
-        damageText.text = $"{cardData.damageMin} - {cardData.damageMax}";
-
-        // Update type images
-        for (int i = 0; i < typeImages.Length; i++)
-        {
-            if (i < cardData.cardType.Count)
+            for (int i = 0; i < typeImages.Length; i++)
             {
-                typeImages[i].gameObject.SetActive(true);
-                typeImages[i].color = typeColors[(int)cardData.cardType[i]];
+                if (i < cardData.cardType.Count)
+                {
+                    typeImages[i].gameObject.SetActive(true);
+                    typeImages[i].color = typeColors[(int)cardData.cardType[i]];
+                }
+                else
+                {
+                    typeImages[i].gameObject.SetActive(false);
+                }
             }
-            else
+        }
+        else if (!isOpen && cardData.cardBackSprite != null)
+        {
+            // Arka yüz
+            cardImage.sprite = cardData.cardBackSprite;
+
+            nameText.gameObject.SetActive(false);
+            healthText.gameObject.SetActive(false);
+            damageText.gameObject.SetActive(false);
+
+            foreach (var img in typeImages)
             {
-                typeImages[i].gameObject.SetActive(false);
+                img.gameObject.SetActive(false);
             }
         }
     }
+
 }
