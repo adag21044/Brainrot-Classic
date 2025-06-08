@@ -16,12 +16,11 @@ public class Card : ScriptableObject
 
     public enum CardType
     {
-        Fire,
-        Earth,
-        Water,
-        Dark,
-        Light,
-        Air
+        Sigma,
+        Cringe,
+        Brainrot,
+        NPC,
+        Wholesome
     }
 
     public enum DamageType

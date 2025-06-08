@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3773456b4e58584097cb02955c84a32, type: 3}
-  m_Name: Bob
+  m_Name: GigaChad
   m_EditorClassIdentifier: 
-  cardName: Bob
-  cardType: 0000000001000000
+  cardName: GigaChad
+  cardType: 00000000
   health: 5
   damageMin: 3
   damageMax: 6
