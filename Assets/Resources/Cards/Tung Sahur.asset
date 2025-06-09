@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3773456b4e58584097cb02955c84a32, type: 3}
   m_Name: Tung Sahur
   m_EditorClassIdentifier: 
-  cardName: 
-  cardType: 
+  cardName: Tung Sahur
+  cardType: 02000000
   health: 0
   damageMin: 0
   damageMax: 0
   damageType: 
-  cardSprite: {fileID: 0}
-  cardBackSprite: {fileID: 0}
+  cardSprite: {fileID: 2050489077032654836, guid: 3d0e1afed434e2444b91980ebf080416, type: 3}
+  cardBackSprite: {fileID: 21300000, guid: c1073028faea5c14192b7ac7831dd8fd, type: 3}
+  symbolSprite: {fileID: 0}

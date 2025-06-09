@@ -13,6 +13,7 @@ public class Card : ScriptableObject
     public List<DamageType> damageType;
     public Sprite cardSprite;
     public Sprite cardBackSprite;
+    public Sprite symbolSprite;
 
     public enum CardType
     {

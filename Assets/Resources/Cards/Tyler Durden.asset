@@ -20,3 +20,4 @@ MonoBehaviour:
   damageType: 
   cardSprite: {fileID: 7174889843255048431, guid: f7de5dea9a012fa49929845006c4c07c, type: 3}
   cardBackSprite: {fileID: 21300000, guid: c1073028faea5c14192b7ac7831dd8fd, type: 3}
+  symbolSprite: {fileID: 6198060105290046391, guid: bddb9e3512726544186dd0ad6b54a012, type: 3}

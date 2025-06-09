@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3773456b4e58584097cb02955c84a32, type: 3}
-  m_Name: Jonathan Swan
+  m_Name: Bob Ross
   m_EditorClassIdentifier: 
-  cardName: Jonathan Swan
-  cardType: 01000000
+  cardName: Bob Ross
+  cardType: 04000000
   health: 0
   damageMin: 0
   damageMax: 0
   damageType: 
-  cardSprite: {fileID: -319382711269543061, guid: d5b63b2c120a5a043ae5cab22087bbdc, type: 3}
+  cardSprite: {fileID: 1843231753787983305, guid: 87d1361f47448da40bf5c277531b5eaf, type: 3}
   cardBackSprite: {fileID: 21300000, guid: c1073028faea5c14192b7ac7831dd8fd, type: 3}
-  symbolSprite: {fileID: -4396136994341983667, guid: 9073ed5c82149674aad309af7c49330b, type: 3}
+  symbolSprite: {fileID: 1870796848867720157, guid: bdb016d0f40ea344abd4acfd34a65fed, type: 3}

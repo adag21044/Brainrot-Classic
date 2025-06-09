@@ -11,6 +11,7 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text damageText;
     public Image[] typeImages;
     [SerializeField] private bool isOpen;
+    [SerializeField] private Sprite[] typeIcons; 
     private Color[] cardColors =
     {
         Color.grey,    // Fire
@@ -66,6 +67,8 @@ public class CardDisplay : MonoBehaviour
             {
                 if (i < cardData.cardType.Count)
                 {
+                    typeImages[i].sprite = typeIcons[(int)cardData.cardType[i]];
+
                     typeImages[i].gameObject.SetActive(true);
 
                     //Change the sprite based on card type
