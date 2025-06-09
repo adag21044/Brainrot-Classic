@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Agent Smith_0: -2940179891291327718
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

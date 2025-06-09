@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Bob Ross_0: 1843231753787983305
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

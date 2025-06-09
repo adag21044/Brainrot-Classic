@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Buzz Lightyear_0: -2351283573038302131
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

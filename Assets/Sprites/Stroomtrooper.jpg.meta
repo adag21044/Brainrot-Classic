@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Stroomtrooper_0: 6533033680758378246
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
