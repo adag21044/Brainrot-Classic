@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3773456b4e58584097cb02955c84a32, type: 3}
-  m_Name: Jenny
+  m_Name: Ohio Final Boss
   m_EditorClassIdentifier: 
-  cardName: Jenny
-  cardType: 0000000001000000
-  health: 5
-  damageMin: 3
-  damageMax: 6
-  damageType: 01000000
-  cardSprite: {fileID: -6815437586108985893, guid: 7e22f83e862a6764fbce038d7fca4b86, type: 3}
-  cardBackSprite: {fileID: 21300000, guid: c1073028faea5c14192b7ac7831dd8fd, type: 3}
+  cardName: 
+  cardType: 
+  health: 0
+  damageMin: 0
+  damageMax: 0
+  damageType: 
+  cardSprite: {fileID: 0}
+  cardBackSprite: {fileID: 0}

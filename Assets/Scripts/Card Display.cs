@@ -24,7 +24,7 @@ public class CardDisplay : MonoBehaviour
     private Color[] typeColors =
     {
         Color.white,    // Fire
-        new Color(0.8f, 0.52f, 0.24f), // Earth
+        Color.white, // Earth
         Color.blue,   // Water
         new Color(0.47f, 0f, 0.4f),  // Dark
         Color.yellow, // Light
@@ -52,7 +52,7 @@ public class CardDisplay : MonoBehaviour
         {
             // Ön yüz
             cardImage.sprite = cardData.cardSprite;
-            cardImage.color = cardColors[(int)cardData.cardType[0]];
+            //cardImage.color = cardColors[(int)cardData.cardType[0]];
 
             nameText.gameObject.SetActive(true);
             healthText.gameObject.SetActive(true);
@@ -67,7 +67,9 @@ public class CardDisplay : MonoBehaviour
                 if (i < cardData.cardType.Count)
                 {
                     typeImages[i].gameObject.SetActive(true);
-                    typeImages[i].color = typeColors[(int)cardData.cardType[i]];
+
+                    //Change the sprite based on card type
+                    //typeImages[i].color = typeColors[(int)cardData.cardType[i]];
                 }
                 else
                 {
