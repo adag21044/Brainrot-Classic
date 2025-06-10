@@ -250,7 +250,7 @@ MonoBehaviour:
   cardPrefab: {fileID: 1163139686171101045, guid: a0fdde0a97fa4fe4986df5c9312fb87a, type: 3}
   handTransform: {fileID: 1483980199}
   fanSpread: -7.5
-  cardSpacing: 150
+  cardSpacing: 105
   verticalSpacing: 100
   cardsInHand: []
 --- !u!1 &519420028
@@ -303,8 +303,8 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
