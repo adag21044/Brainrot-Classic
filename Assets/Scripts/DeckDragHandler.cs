@@ -22,6 +22,8 @@ public class DeckDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     [SerializeField] private int maxDeleteCount = 26; // Max kart 
     [SerializeField] private GameObject DeckObject;
 
+    public float snapDistance = 100f;
+
     void Awake() {
         canvas = GetComponentInParent<Canvas>();
     }
@@ -54,14 +56,19 @@ public class DeckDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         if (preview == null) return;
 
-        // 4) Bırakılan noktayı el alanına (handTransform) düşüp düşmediğini kontrol et
-        var rt = handManager.handTransform.GetComponent<RectTransform>();
-        if (RectTransformUtility.RectangleContainsScreenPoint(rt, evt.position, evt.pressEventCamera))
-        {
-            // 5a) El yönetimine ekle
-            handManager.AddCardToHand(draggedCardData);  // Yeni kartı orada instantiate edecek :contentReference[oaicite:1]{index=1}
+        Vector3 worldPoint;
+        RectTransformUtility.ScreenPointToWorldPointInRectangle(
+            handManager.handTransform.GetComponent<RectTransform>(),
+            evt.position,
+            evt.pressEventCamera,
+            out worldPoint);
 
-            // 5b) Önizlemeyi temizle
+        float distance = Vector3.Distance(worldPoint, handManager.handTransform.position);
+
+        if (distance <= snapDistance)
+        {
+            // El bölgesine yakın: ekle
+            handManager.AddCardToHand(draggedCardData);
             Destroy(preview);
             preview = null;
 
@@ -77,10 +84,9 @@ public class DeckDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
         else
         {
-            // ❌ Geçersiz yere bırakıldıysa yok et
+            // Çok uzakta: yok et
             Destroy(preview);
             preview = null;
         }
-        
     }
 }
