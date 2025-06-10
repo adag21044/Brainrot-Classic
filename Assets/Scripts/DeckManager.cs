@@ -45,4 +45,6 @@ public class DeckManager : MonoBehaviour
         handManager.AddCardToHand(nextCard);
         currentCardIndex = (currentCardIndex + 1) % allCards.Count; // Loop back to the start of the deck
     } 
+
+    
 }
