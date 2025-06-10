@@ -44,7 +44,14 @@ public class DeckManager : MonoBehaviour
         Card nextCard = allCards[currentCardIndex];
         handManager.AddCardToHand(nextCard);
         currentCardIndex = (currentCardIndex + 1) % allCards.Count; // Loop back to the start of the deck
-    } 
+    }
 
-    
+    public Card GetNextCard()
+    {
+        if (allCards.Count == 0) return null; // Check if there are any cards left
+
+        var next = allCards[currentCardIndex]; // Get the next card
+        currentCardIndex = (currentCardIndex + 1) % allCards.Count; // Move to the next card, looping back to the start
+        return next;
+    }
 }

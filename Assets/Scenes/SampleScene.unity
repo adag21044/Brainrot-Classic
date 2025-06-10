@@ -253,6 +253,11 @@ MonoBehaviour:
   cardSpacing: 105
   verticalSpacing: 100
   cardsInHand: []
+--- !u!1 &439109508 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1163139686171101045, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
+  m_PrefabInstance: {fileID: 1857408647}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +339,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -636,11 +641,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8344369002551806668, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -454
+      value: -418.1
       objectReference: {fileID: 0}
     - target: {fileID: 8344369002551806668, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 39
+      value: 83.8
       objectReference: {fileID: 0}
     - target: {fileID: 8344369002551806668, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -657,13 +662,70 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1163139686171101045, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1857408650}
+    - targetCorrespondingSourceObject: {fileID: 1163139686171101045, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1857408651}
+    - targetCorrespondingSourceObject: {fileID: 1163139686171101045, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1857408652}
   m_SourcePrefab: {fileID: 100100000, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
 --- !u!224 &1857408648 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8344369002551806668, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
   m_PrefabInstance: {fileID: 1857408647}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1857408650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439109508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f535be4912ec3f408709acdf445ac3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deckManager: {fileID: 1191466834}
+  cardPrefab: {fileID: 1163139686171101045, guid: a0fdde0a97fa4fe4986df5c9312fb87a, type: 3}
+  handManager: {fileID: 71403610}
+  initialDeckSize: 17
+  cardOffset: {x: 4, y: -4}
+  cardsToBeDeleted:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  deleteIndex: 0
+  maxDeleteCount: 5
+  DeckObject: {fileID: 439109508}
+--- !u!210 &1857408651
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439109508}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -10
+  m_SortAtRoot: 0
+--- !u!114 &1857408652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439109508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cd33b939de2c6b45b2841a992ca04b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1952758006
 GameObject:
   m_ObjectHideFlags: 0
