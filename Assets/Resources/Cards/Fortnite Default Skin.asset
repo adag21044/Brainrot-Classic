@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fortnite Default Skin
   m_EditorClassIdentifier: 
   cardName: Fortnite Default Skin
-  cardType: 
+  cardType: 03000000
   health: 0
   damageMin: 0
   damageMax: 0
