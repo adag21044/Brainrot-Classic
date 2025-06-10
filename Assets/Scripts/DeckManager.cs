@@ -15,11 +15,25 @@ public class DeckManager : MonoBehaviour
         //Add the loaded cards to the allCards list
         allCards.AddRange(loadedCards);
 
+        //Shuffle the deck
+        ShuffleCards(allCards);
+
         HandManager hand = FindObjectOfType<HandManager>();
 
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 2; i++)
         {
             DrawCard(hand);
+        }
+    }
+
+    private void ShuffleCards(List<Card> cards)
+    {
+        for (int i = 0; i < cards.Count; i++)
+        {
+            int randomIndex = Random.Range(i, cards.Count);
+            Card temp = cards[i];
+            cards[i] = cards[randomIndex];
+            cards[randomIndex] = temp;
         }
     }
 
