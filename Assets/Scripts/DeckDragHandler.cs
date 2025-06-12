@@ -6,12 +6,12 @@ public class DeckDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 {
     [Header("References")]
     public DeckManager deckManager;
-    public GameObject cardPrefab;           // HandManager.cardPrefab’ı kullanabilirsin
+    public GameObject cardPrefab;           
     public HandManager handManager;
 
     [Header("Deck View Settings")]
-    public int initialDeckSize = 17;           // kaç kart göstereceğiz
-    public Vector2 cardOffset = new Vector2(4f, -4f); // her kartın bir öncekine göre offset'i
+    public int initialDeckSize = 17;           //How many face‑down cards are visible.
+    public Vector2 cardOffset = new Vector2(4f, -4f); // Visual offset between cards.
 
     
     Canvas canvas;
