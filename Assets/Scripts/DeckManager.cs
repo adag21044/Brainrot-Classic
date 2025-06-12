@@ -70,18 +70,18 @@ public class DeckManager : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             Card card = GetNextCard();
-            if (card != null)
-            {
-                GameObject newCard = Instantiate(cardPrefab, tableCardParent);
-                var disp = newCard.GetComponent<CardDisplay>();
-                disp.cardData = card;
-                disp.isOpen = true;
-                disp.UpdateCardDisplay();
+            if (card == null) continue;
 
-                // Kartları yan yana diz
-                tableCards.Add(newCard);
-                newCard.GetComponent<RectTransform>().anchoredPosition = new Vector2(i * 200, 0); // 200 spacing
-            }
+            GameObject newCard = Instantiate(cardPrefab, tableCardParent);
+            var disp = newCard.GetComponent<CardDisplay>();
+
+            disp.cardData = card;
+            disp.SetLocation(CardLocation.Table);   // <-- tek satır eklendi
+
+            tableCards.Add(newCard);
+            newCard.GetComponent<RectTransform>().anchoredPosition =
+                new Vector2(i * 200, 0);
         }
     }
+
 }

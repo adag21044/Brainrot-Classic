@@ -22,6 +22,7 @@ public class HandManager : MonoBehaviour
     {
         // Update the hand visuals every frame
         UpdateHandVisuals();
+
     }
 
     public void AddCardToHand(Card cardData)
@@ -30,11 +31,17 @@ public class HandManager : MonoBehaviour
         GameObject newCard = Instantiate(cardPrefab, handTransform.position, Quaternion.identity, handTransform);
         cardsInHand.Add(newCard);
 
-        // Set the cardData of the instantiated card
-        newCard.GetComponent<CardDisplay>().cardData = cardData;
+        // Set the card data
+        var cardDisplay = newCard.GetComponent<CardDisplay>();
+        cardDisplay.cardData = cardData;
+
+        // Determine if this is Player or AI hand
+        CardLocation location = (gameObject.tag == "AIHand") ? CardLocation.AIHand : CardLocation.PlayerHand;
+        cardDisplay.SetLocation(location);
 
         UpdateHandVisuals();
     }
+
 
 
 

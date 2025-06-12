@@ -11,7 +11,26 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text damageText; // Text component displaying the damage range
     public Image[] typeImages; // One icon for each element/type the card has (max length set in Inspector)
     [SerializeField] public bool isOpen; // Determines whether the card is currently face‑up
+    [SerializeField] public CardLocation cardLocation; // The location of the card in the game (e.g., PlayerHand, AIHand, Table, Deck)
     [SerializeField] private Sprite[] typeIcons; // Type Icon
+    public CardLocation currentLocation { get; private set; } // Current location of the card (e.g., PlayerHand, Table, etc.)
+
+    
+
+    public void SetLocation(CardLocation newLocation)
+    {
+        // Store location
+        currentLocation = newLocation;
+
+        // Face-up only if the card is in the player's hand or on the table
+        isOpen = newLocation == CardLocation.PlayerHand ||
+                newLocation == CardLocation.Table;
+
+        UpdateCardDisplay();   // Refresh visuals
+    }
+
+
+
     private Color[] cardColors =
     {
         Color.grey,    // Fire
@@ -40,19 +59,47 @@ public class CardDisplay : MonoBehaviour
     // Temporary debug shortcut: press SPACE to flip the card in play mode
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Oyuncunun elindeki kartlar her zaman açık olsun
+        if (currentLocation == CardLocation.PlayerHand && !isOpen)
         {
-            isOpen = !isOpen;
+            isOpen = true;
+            UpdateCardDisplay();
+        }
+
+        if (currentLocation == CardLocation.Table)
+        {
+            isOpen = true;
             UpdateCardDisplay();
         }
     }
+
     
-    public void SetCard(Card card, bool open)
+    public void SetCard(Card card, bool open, CardLocation location)
     {
         cardData = card;
         isOpen = open;
+        if (location == CardLocation.PlayerHand || location == CardLocation.Table)
+            isOpen = true;
+        else
+            isOpen = false;
         UpdateCardDisplay();
     }
+
+    public bool IsInPlayerHand()
+    {
+        return currentLocation == CardLocation.PlayerHand;
+    }
+
+    public bool IsOnTable()
+    {
+        return currentLocation == CardLocation.Table;
+    }
+
+    public bool IsInAIHand()
+    {
+        return currentLocation == CardLocation.AIHand;
+    }
+
 
 
     public void UpdateCardDisplay()
