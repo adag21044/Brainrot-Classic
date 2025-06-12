@@ -11,6 +11,11 @@ public class DeckManager : MonoBehaviour
     public HandManager playerHand;
     public HandManager aiHand;
 
+    [Header("Cards in Table")]
+    public Transform tableCardParent; // Yerdeki kartların konacağı GameObject
+    public GameObject cardPrefab;     // Instantiate edilecek kart prefabı
+    public List<GameObject> tableCards = new List<GameObject>();
+
     private void Start()
     {
         //Load all cards from the Resources folder
@@ -27,6 +32,8 @@ public class DeckManager : MonoBehaviour
             DrawCard(playerHand);
             DrawCard(aiHand);
         }
+
+        DealTableCards(); // Open the card on the table
     }
 
     private void ShuffleCards(List<Card> cards)
@@ -56,5 +63,25 @@ public class DeckManager : MonoBehaviour
         var next = allCards[currentCardIndex]; // Get the next card
         currentCardIndex = (currentCardIndex + 1) % allCards.Count; // Move to the next card, looping back to the start
         return next;
+    }
+
+    public void DealTableCards()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            Card card = GetNextCard();
+            if (card != null)
+            {
+                GameObject newCard = Instantiate(cardPrefab, tableCardParent);
+                var disp = newCard.GetComponent<CardDisplay>();
+                disp.cardData = card;
+                disp.isOpen = true;
+                disp.UpdateCardDisplay();
+
+                // Kartları yan yana diz
+                tableCards.Add(newCard);
+                newCard.GetComponent<RectTransform>().anchoredPosition = new Vector2(i * 200, 0); // 200 spacing
+            }
+        }
     }
 }

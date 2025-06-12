@@ -10,7 +10,7 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text healthText; // Text component displaying the health value
     public TMP_Text damageText; // Text component displaying the damage range
     public Image[] typeImages; // One icon for each element/type the card has (max length set in Inspector)
-    [SerializeField] private bool isOpen; // Determines whether the card is currently face‑up
+    [SerializeField] public bool isOpen; // Determines whether the card is currently face‑up
     [SerializeField] private Sprite[] typeIcons; // Type Icon
     private Color[] cardColors =
     {
@@ -46,6 +46,14 @@ public class CardDisplay : MonoBehaviour
             UpdateCardDisplay();
         }
     }
+    
+    public void SetCard(Card card, bool open)
+    {
+        cardData = card;
+        isOpen = open;
+        UpdateCardDisplay();
+    }
+
 
     public void UpdateCardDisplay()
     {
@@ -64,7 +72,7 @@ public class CardDisplay : MonoBehaviour
             nameText.text = cardData.cardName;
             healthText.text = cardData.health.ToString();
             damageText.text = $"{cardData.damageMin} - {cardData.damageMax}";
-            
+
             // Display element/type icons
             for (int i = 0; i < typeImages.Length; i++)
             {
