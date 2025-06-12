@@ -7,6 +7,10 @@ public class DeckManager : MonoBehaviour
 
     private int currentCardIndex = 0;
 
+    [Header("Players")]
+    public HandManager playerHand;
+    public HandManager aiHand;
+
     private void Start()
     {
         //Load all cards from the Resources folder
@@ -18,11 +22,10 @@ public class DeckManager : MonoBehaviour
         //Shuffle the deck
         ShuffleCards(allCards);
 
-        HandManager hand = FindObjectOfType<HandManager>();
-
         for (int i = 0; i < 2; i++)
         {
-            DrawCard(hand);
+            DrawCard(playerHand);
+            DrawCard(aiHand);
         }
     }
 
