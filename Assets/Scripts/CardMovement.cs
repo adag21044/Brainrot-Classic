@@ -52,6 +52,16 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         originalRotation = rectTransform.localRotation;
     }
 
+    private void Start()
+    {
+        if (RectTransformUtility.RectangleContainsScreenPoint(
+            GetComponent<RectTransform>(), Input.mousePosition, Camera.main))
+        {
+            OnPointerEnter(new PointerEventData(EventSystem.current));
+        }
+    }
+
+
     private void Update()
     {
         // Dispatch per‑state behaviour each frame

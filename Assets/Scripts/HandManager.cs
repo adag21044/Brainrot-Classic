@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class HandManager : MonoBehaviour
@@ -27,20 +25,19 @@ public class HandManager : MonoBehaviour
 
     public void AddCardToHand(Card cardData)
     {
-        // Instantiate the card
         GameObject newCard = Instantiate(cardPrefab, handTransform.position, Quaternion.identity, handTransform);
         cardsInHand.Add(newCard);
 
-        // Set the card data
         var cardDisplay = newCard.GetComponent<CardDisplay>();
-        cardDisplay.cardData = cardData;
-
-        // Determine if this is Player or AI hand
+        
         CardLocation location = (gameObject.tag == "AIHand") ? CardLocation.AIHand : CardLocation.PlayerHand;
-        cardDisplay.SetLocation(location);
+        
+        // ⚠️ ÖNEMLİ: SetCard kullanarak hem veri hem görünüm hem konum birlikte setlenmeli
+        cardDisplay.SetCard(cardData, true, location);
 
         UpdateHandVisuals();
     }
+
 
 
 

@@ -794,6 +794,7 @@ MonoBehaviour:
   tableCardParent: {fileID: 590166705}
   cardPrefab: {fileID: 1163139686171101045, guid: a0fdde0a97fa4fe4986df5c9312fb87a, type: 3}
   tableCards: []
+  deckObject: {fileID: 439109508}
 --- !u!1 &1483980198
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,6 +841,10 @@ PrefabInstance:
     - target: {fileID: 1163139686171101045, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
       propertyPath: m_Name
       value: DeckObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 1163139686171101045, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3147431674443063726, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
       propertyPath: m_Sprite

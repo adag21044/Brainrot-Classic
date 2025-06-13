@@ -15,6 +15,7 @@ public class DeckManager : MonoBehaviour
     public Transform tableCardParent; // Yerdeki kartların konacağı GameObject
     public GameObject cardPrefab;     // Instantiate edilecek kart prefabı
     public List<GameObject> tableCards = new List<GameObject>();
+    [SerializeField] private GameObject deckObject;
 
     private void Start()
     {
@@ -53,16 +54,44 @@ public class DeckManager : MonoBehaviour
 
         Card nextCard = allCards[currentCardIndex];
         handManager.AddCardToHand(nextCard);
-        currentCardIndex = (currentCardIndex + 1) % allCards.Count; // Loop back to the start of the deck
+
+        // Remove the card from the deck
+        allCards.RemoveAt(currentCardIndex);
+
+        // Increment the index to point to the next card
+        if (currentCardIndex >= allCards.Count)
+            currentCardIndex = 0;
+
+        
+        if (allCards.Count == 0 && deckObject != null)
+            SetDeactiveDeckObject(deckObject);
+
     }
 
     public Card GetNextCard()
     {
-        if (allCards.Count == 0) return null; // Check if there are any cards left
+        if (allCards.Count == 0) return null;
 
-        var next = allCards[currentCardIndex]; // Get the next card
-        currentCardIndex = (currentCardIndex + 1) % allCards.Count; // Move to the next card, looping back to the start
+        Card next = allCards[currentCardIndex];
+        allCards.RemoveAt(currentCardIndex);
+
+        if (currentCardIndex >= allCards.Count)
+            currentCardIndex = 0;
+
+        if (allCards.Count == 0 && deckObject != null)
+            SetDeactiveDeckObject(deckObject);
+
         return next;
+    }
+
+
+    public void SetDeactiveDeckObject(GameObject deckObj)
+    {
+        if (deckObj != null)
+        {
+            deckObject = deckObj;
+            deckObject.SetActive(false); 
+        }
     }
 
     public void DealTableCards()
@@ -83,5 +112,4 @@ public class DeckManager : MonoBehaviour
                 new Vector2(i * 200, 0);
         }
     }
-
 }
