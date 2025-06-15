@@ -32,8 +32,9 @@ public class HandManager : MonoBehaviour
         
         CardLocation location = (gameObject.tag == "AIHand") ? CardLocation.AIHand : CardLocation.PlayerHand;
         
-        // ⚠️ ÖNEMLİ: SetCard kullanarak hem veri hem görünüm hem konum birlikte setlenmeli
-        cardDisplay.SetCard(cardData, true, location);
+        // for AI FALSE for Player TRUE
+        bool isCardOpen = location == CardLocation.PlayerHand;
+        cardDisplay.SetCard(cardData, isCardOpen, location);
 
         UpdateHandVisuals();
     }

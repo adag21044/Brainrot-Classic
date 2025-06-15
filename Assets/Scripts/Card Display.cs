@@ -20,7 +20,7 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text damageText; // Text component displaying the damage range
     public Image[] typeImages; // One icon for each element/type the card has (max length set in Inspector)
     [SerializeField] public bool isOpen; // Determines whether the card is currently face‑up
-    [SerializeField] public CardLocation cardLocation; // The location of the card in the game (e.g., PlayerHand, AIHand, Table, Deck)
+    //[SerializeField] public CardLocation cardLocation; // The location of the card in the game (e.g., PlayerHand, AIHand, Table, Deck)
     [SerializeField] private Sprite[] typeIcons; // Type Icon
     public CardLocation currentLocation { get; private set; } // Current location of the card (e.g., PlayerHand, Table, etc.)
 
@@ -65,34 +65,16 @@ public class CardDisplay : MonoBehaviour
         UpdateCardDisplay(); // Initialise visuals once the object awakens
     }
 
-    // Temporary debug shortcut: press SPACE to flip the card in play mode
-    private void Update()
-    {
-        // Oyuncunun elindeki kartlar her zaman açık olsun
-        if (currentLocation == CardLocation.PlayerHand && !isOpen)
-        {
-            isOpen = true;
-            UpdateCardDisplay();
-        }
-
-        if (currentLocation == CardLocation.Table)
-        {
-            isOpen = true;
-            UpdateCardDisplay();
-        }
-    }
 
 
     public void SetCard(Card card, bool open, CardLocation location)
     {
         cardData = card;
         isOpen = open;
-        if (location == CardLocation.PlayerHand || location == CardLocation.Table)
-            isOpen = true;
-        else
-            isOpen = false;
+        currentLocation = location;
         UpdateCardDisplay();
     }
+
 
     public bool IsInPlayerHand()
     {
