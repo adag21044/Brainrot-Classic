@@ -20,11 +20,12 @@ public class DeckDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     [SerializeField] private GameObject[] cardsToBeDeleted;
     [SerializeField] private int deleteIndex = 0;
     [SerializeField] private int maxDeleteCount = 26; // Max kart 
-    [SerializeField] private GameObject DeckObject;
-
     public float snapDistance = 100f;
 
-    void Awake() {
+    [SerializeField] private DeckVisibilityController deckVisibilityController; // Reference to the DeckVisibilityController for hiding deck view
+
+    void Awake()
+    {
         canvas = GetComponentInParent<Canvas>();
     }
 
@@ -76,10 +77,17 @@ public class DeckDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             {
                 Destroy(cardsToBeDeleted[deleteIndex]);
                 deleteIndex++;
+                maxDeleteCount--;
+                if (maxDeleteCount == 0)
+                {
+                    Debug.Log("maxDeleteCount is 0, hiding deck view");
+                    deckVisibilityController.HideDeckView(); // Deck görünümünü gizle
+                }
             }
-            if (maxDeleteCount == 0)
+
+            if (deleteIndex >= cardsToBeDeleted.Length)
             {
-                Destroy(DeckObject);
+                Debug.LogWarning("deleteIndex exceeded cardsToBeDeleted array length!");
             }
         }
         else

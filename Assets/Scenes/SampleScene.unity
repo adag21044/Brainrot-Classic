@@ -794,7 +794,12 @@ MonoBehaviour:
   tableCardParent: {fileID: 590166705}
   cardPrefab: {fileID: 1163139686171101045, guid: a0fdde0a97fa4fe4986df5c9312fb87a, type: 3}
   tableCards: []
-  deckObject: {fileID: 439109508}
+  deckObject: {fileID: 0}
+--- !u!1 &1288377390 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5784130807968325451, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
+  m_PrefabInstance: {fileID: 1857408647}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1483980198
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,6 +835,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -330}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1632447338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1632447340}
+  - component: {fileID: 1632447339}
+  m_Layer: 0
+  m_Name: Deck Visibility Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1632447339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632447338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c84bf95b86ef7444a8f61ba29958c497, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deckView: {fileID: 1288377390}
+--- !u!4 &1632447340
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632447338}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 732.6373, y: 317.39044, z: -8.352275}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1857408647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -838,6 +888,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1952758010}
     m_Modifications:
+    - target: {fileID: 980824932576670013, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1163139686171101045, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
       propertyPath: m_Name
       value: DeckObject
@@ -846,10 +900,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1163139686171101045, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 3147431674443063726, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: c1073028faea5c14192b7ac7831dd8fd, type: 3}
+    - target: {fileID: 5784130807968325451, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8344369002551806668, guid: a7cc4a595a9e6fa4a89e915c546226b5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -975,8 +1037,8 @@ MonoBehaviour:
   - {fileID: 0}
   deleteIndex: 0
   maxDeleteCount: 5
-  DeckObject: {fileID: 439109508}
   snapDistance: 100
+  deckVisibilityController: {fileID: 0}
 --- !u!210 &1857408651
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -1117,3 +1179,4 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 69634647}
   - {fileID: 1952758010}
+  - {fileID: 1632447340}

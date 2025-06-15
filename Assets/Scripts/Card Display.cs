@@ -2,6 +2,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+public enum CardLocation
+{
+    Deck,
+    PlayerHand,
+    AIHand,
+    Table
+}
+  
+
 public class CardDisplay : MonoBehaviour
 {
     public Card cardData; // ScriptableObject that stores all static data about the card
@@ -73,7 +82,7 @@ public class CardDisplay : MonoBehaviour
         }
     }
 
-    
+
     public void SetCard(Card card, bool open, CardLocation location)
     {
         cardData = card;
