@@ -16,6 +16,8 @@ public class DeckManager : MonoBehaviour
     public GameObject cardPrefab;     // Instantiate edilecek kart prefabı
     public List<GameObject> tableCards = new List<GameObject>();
     [SerializeField] private GameObject deckObject;
+    [SerializeField] private DeckVisibilityController deckVisibilityController;
+    public bool IsEmpty => allCards.Count == 0;
 
     private void Start()
     {
@@ -35,6 +37,9 @@ public class DeckManager : MonoBehaviour
         }
 
         DealTableCards(); // Open the card on the table
+
+        Debug.Log($"Total cards loaded from Resources: {allCards.Count}");
+
     }
 
     private void ShuffleCards(List<Card> cards)
@@ -50,7 +55,14 @@ public class DeckManager : MonoBehaviour
 
     public void DrawCard(HandManager handManager)
     {
-        if (allCards.Count == 0) return;
+        if (allCards.Count == 0)
+        {
+            SetDeactiveDeckObject(deckObject);
+            return;
+        }
+
+        if (currentCardIndex >= allCards.Count)
+            currentCardIndex = 0;
 
         Card nextCard = allCards[currentCardIndex];
         handManager.AddCardToHand(nextCard);
@@ -58,31 +70,45 @@ public class DeckManager : MonoBehaviour
         // Remove the card from the deck
         allCards.RemoveAt(currentCardIndex);
 
-        // Increment the index to point to the next card
-        if (currentCardIndex >= allCards.Count)
-            currentCardIndex = 0;
-
-        
-        if (allCards.Count == 0 && deckObject != null)
+        if (allCards.Count == 0)
             SetDeactiveDeckObject(deckObject);
+
+        DeactivateDeckIfEmpty(); 
 
     }
 
     public Card GetNextCard()
     {
-        if (allCards.Count == 0) return null;
+        if (IsEmpty) return null;
+        else
+        if (allCards.Count == 0)
+        {
+            SetDeactiveDeckObject(deckObject);
+            return null;
+        }
 
+        // 🔐 index sınırını kontrol et
+        if (currentCardIndex >= allCards.Count)
+        {
+            currentCardIndex = 0;
+        }
+
+        // 🃏 karta güvenle eriş
         Card next = allCards[currentCardIndex];
+
+        // ❌ kartı çıkar
         allCards.RemoveAt(currentCardIndex);
 
-        if (currentCardIndex >= allCards.Count)
-            currentCardIndex = 0;
-
-        if (allCards.Count == 0 && deckObject != null)
+        // 🧹 bitti mi kontrol
+        if (allCards.Count == 0)
+        {
             SetDeactiveDeckObject(deckObject);
+        }
 
         return next;
     }
+
+
 
 
     public void SetDeactiveDeckObject(GameObject deckObj)
@@ -90,7 +116,12 @@ public class DeckManager : MonoBehaviour
         if (deckObj != null)
         {
             deckObject = deckObj;
-            deckObject.SetActive(false); 
+            deckObject.SetActive(false);
+
+            if (deckVisibilityController != null)
+            {
+                deckVisibilityController.HideDeckView(); // Hide the deck view
+            }
         }
     }
 
@@ -111,5 +142,11 @@ public class DeckManager : MonoBehaviour
             newCard.GetComponent<RectTransform>().anchoredPosition =
                 new Vector2(i * 200, 0);
         }
+    }
+    
+    public void DeactivateDeckIfEmpty()
+    {
+        if (allCards.Count == 0)
+            SetDeactiveDeckObject(deckObject);
     }
 }

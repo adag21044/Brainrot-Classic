@@ -73,22 +73,21 @@ public class DeckDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             Destroy(preview);
             preview = null;
 
-            if (maxDeleteCount > 0 && deleteIndex < cardsToBeDeleted.Length)
+            if (deckManager.allCards.Count > 0)
             {
-                Destroy(cardsToBeDeleted[deleteIndex]);
+                if (deleteIndex < cardsToBeDeleted.Length)
+                {
+                    Destroy(cardsToBeDeleted[deleteIndex]);
+                }
                 deleteIndex++;
                 maxDeleteCount--;
-                if (maxDeleteCount == 0)
-                {
-                    Debug.Log("maxDeleteCount is 0, hiding deck view");
-                    deckVisibilityController.HideDeckView(); // Deck görünümünü gizle
-                }
+            }
+            else
+            {
+                Debug.Log("No more cards left. Deck visuals should already be hidden.");
             }
 
-            if (deleteIndex >= cardsToBeDeleted.Length)
-            {
-                Debug.LogWarning("deleteIndex exceeded cardsToBeDeleted array length!");
-            }
+            deckManager.DeactivateDeckIfEmpty();
         }
         else
         {

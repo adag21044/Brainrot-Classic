@@ -2,14 +2,21 @@ using UnityEngine;
 
 public class BrainHealthController : MonoBehaviour
 {
-    BrainHealthModel brainHealthModel;
-    BrainHealthView brainHealthView;
+    [SerializeField]private BrainHealthModel brainHealthModel;
+    [SerializeField]private BrainHealthView brainHealthView;
+    [SerializeField]private PotController potController; // Reference to the PotController
+
+    private void Start()
+    {
+        brainHealthModel = new BrainHealthModel();
+    }
+
 
     public void Bet()
     {
         // Simulate a bet that reduces brain health
         float betAmount = 10f; // Example bet amount
-        ReduceBrainHealth(betAmount);
+        ReduceBrainHealth(betAmount);   
     }
 
     private void ReduceBrainHealth(float amount)
