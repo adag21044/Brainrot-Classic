@@ -1,2 +1,2 @@
 # Brainrot Classic
-Card Gmae
+Card Game
