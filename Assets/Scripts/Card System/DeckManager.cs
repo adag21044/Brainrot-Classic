@@ -42,6 +42,15 @@ public class DeckManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            AddCardToTable(GetNextCard());
+        }
+    }
+
+
     private void ShuffleCards(List<Card> cards)
     {
         for (int i = 0; i < cards.Count; i++)
@@ -142,6 +151,21 @@ public class DeckManager : MonoBehaviour
             newCard.GetComponent<RectTransform>().anchoredPosition =
                 new Vector2(i * 200, 0);
         }
+    }
+
+    
+    public void AddCardToTable(Card card)
+    {
+        if (card == null) return;
+
+        GameObject newCard = Instantiate(cardPrefab, tableCardParent);
+        var disp = newCard.GetComponent<CardDisplay>();
+
+        disp.cardData = card;
+        disp.SetLocation(CardLocation.Table);
+        newCard.GetComponent<RectTransform>().anchoredPosition = new Vector2(tableCards.Count * 200, 0);
+
+        tableCards.Add(newCard);
     }
     
     public void DeactivateDeckIfEmpty()
