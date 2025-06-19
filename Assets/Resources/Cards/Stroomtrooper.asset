@@ -18,6 +18,7 @@ MonoBehaviour:
   damageMin: 0
   damageMax: 0
   damageType: 
+  cardID: 3
   cardSprite: {fileID: 6533033680758378246, guid: 0a4cd8f9846c5d8438365eb0e813ddbe, type: 3}
   cardBackSprite: {fileID: 21300000, guid: c1073028faea5c14192b7ac7831dd8fd, type: 3}
   symbolSprite: {fileID: -8922328891513336043, guid: 1230927771709174abec71b0b1315b86, type: 3}

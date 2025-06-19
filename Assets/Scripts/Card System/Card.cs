@@ -20,6 +20,7 @@ public class Card : ScriptableObject
     public int damageMin;
     public int damageMax;
     public List<DamageType> damageType;
+    public int cardID;
 
     // -------------------------------------------------------------------------
     //  Visual Assets
