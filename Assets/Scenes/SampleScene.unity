@@ -1336,7 +1336,7 @@ GameObject:
   m_Component:
   - component: {fileID: 611401218}
   m_Layer: 5
-  m_Name: DebugConsole
+  m_Name: Debug-ShowAICards
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1349,13 +1349,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 611401217}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 203404956}
-  m_Father: {fileID: 1952758010}
+  m_Father: {fileID: 860819440}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2237,6 +2237,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2105904718}
+  - {fileID: 611401218}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4915,7 +4916,6 @@ RectTransform:
   - {fileID: 1191466833}
   - {fileID: 1857408648}
   - {fileID: 590166705}
-  - {fileID: 611401218}
   - {fileID: 1009835080}
   - {fileID: 1762846358}
   - {fileID: 637047849}
