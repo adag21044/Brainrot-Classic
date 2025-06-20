@@ -157,6 +157,7 @@ public class DeckManager : MonoBehaviour
     public void AddCardToTable(Card card)
     {
         if (card == null) return;
+        else if (tableCards.Count == 5) return; // Maximum 5 cards on the table
 
         GameObject newCard = Instantiate(cardPrefab, tableCardParent);
         var disp = newCard.GetComponent<CardDisplay>();
