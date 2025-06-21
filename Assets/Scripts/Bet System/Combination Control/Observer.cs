@@ -98,7 +98,7 @@ public class Observer : MonoBehaviour
             CardDisplay cardDisplay = child.GetComponent<CardDisplay>();
             if (cardDisplay != null && cardDisplay.cardData != null)
             {
-                Debug.Log($"Table Card {i} -> Name: {cardDisplay.cardData.cardName}");
+                Debug.Log($"AI Card {i} -> Name: {cardDisplay.cardData.cardName}");
             }
         }
     }
@@ -107,6 +107,9 @@ public class Observer : MonoBehaviour
     private void CombineWithAI()
     {
         aiCombined.Clear();
+
+        Debug.Log($"AIHandPosition has {aiHandPosition.transform.childCount} children.");
+
 
         for (int i = 0; i < aiHandPosition.transform.childCount; i++)
         {

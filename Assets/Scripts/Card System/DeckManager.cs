@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DeckManager : MonoBehaviour
 {
     public List<Card> allCards = new List<Card>();
-
     private int currentCardIndex = 0;
 
     [Header("Players")]
@@ -19,8 +19,16 @@ public class DeckManager : MonoBehaviour
     [SerializeField] private DeckVisibilityController deckVisibilityController;
     public bool IsEmpty => allCards.Count == 0;
 
+    [Header("Events")]
+    public IntEvent onDeckChanged; // Custom UnityEvent
+    
+    public DeckCounter deckCounter; // Reference to the DeckCounter to update UI
+
+
     private void Start()
     {
+        onDeckChanged?.Invoke(allCards.Count);
+
         //Load all cards from the Resources folder
         Card[] loadedCards = Resources.LoadAll<Card>("Cards");
 
@@ -39,6 +47,7 @@ public class DeckManager : MonoBehaviour
         DealTableCards(); // Open the card on the table
 
         Debug.Log($"Total cards loaded from Resources: {allCards.Count}");
+
 
     }
 
@@ -81,6 +90,8 @@ public class DeckManager : MonoBehaviour
 
         if (allCards.Count == 0)
             SetDeactiveDeckObject(deckObject);
+
+        onDeckChanged?.Invoke(allCards.Count);
 
         DeactivateDeckIfEmpty(); 
 
@@ -153,7 +164,7 @@ public class DeckManager : MonoBehaviour
         }
     }
 
-    
+
     public void AddCardToTable(Card card)
     {
         if (card == null) return;
@@ -167,6 +178,8 @@ public class DeckManager : MonoBehaviour
         newCard.GetComponent<RectTransform>().anchoredPosition = new Vector2(tableCards.Count * 200, 0);
 
         tableCards.Add(newCard);
+        onDeckChanged?.Invoke(allCards.Count);
+        deckCounter?.UpdateCardCountUI(allCards.Count); // Update the UI with the remaining
     }
     
     public void DeactivateDeckIfEmpty()

@@ -1,132 +1,157 @@
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+using System.Collections.Generic;                                    // Provides generic collection classes
+using System.Linq;                                                   // Enables LINQ extension methods
+using UnityEngine;                                                   // Core Unity engine namespace
 
-public class CombinationDetection : MonoBehaviour
+public class CombinationDetection : MonoBehaviour                    // MonoBehaviour so Unity can attach it to a GameObject
 {
-    [SerializeField] private Observer observer;
-
-    private void Update()
+    //------------------------------------------------------------------------
+    // Public / Inspector fields
+    //------------------------------------------------------------------------
+    public enum Side                                                  // Defines which hand this detector evaluates
     {
-        if (Input.GetKeyDown(KeyCode.D))
-            DetectCombination();
+        Player,                                                       // Evaluate the human player's cards
+        AI                                                            // Evaluate the AI opponent's cards
     }
 
-    private void DetectCombination()
+    [SerializeField] private Side side;                               // Which side to inspect (set from Inspector)
+    [SerializeField] private Observer observer;                       // Reference to Observer that holds combined card lists
+
+    //------------------------------------------------------------------------
+    // Unity life-cycle
+    //------------------------------------------------------------------------
+    private void Update()                                             // Called once per frame by Unity
     {
-        if (IsQuintuple())              Debug.Log("Quintuple detected");
-        else if (IsFourOfAKind())       Debug.Log("Four of a Kind detected");
-        else if (IsFullHouse())         Debug.Log("Full House detected");
-        else if (IsThreeOfAKind())      Debug.Log("Three of a Kind detected");
-        else if (IsTwoPair()) Debug.Log("Two Pair detected");
-        else if (IsSinglePair()) Debug.Log("Single Pair detected");
-        else Debug.Log("High Meme detected");
+        if (Input.GetKeyDown(KeyCode.D))                              // If the D key is pressed
+        {
+            DetectCombination();                                      // Run combination detection
+        }
     }
 
-    // Helper: get all CardDisplay components from combined list
-    private IEnumerable<CardDisplay> GetCombinedDisplays()
+    //------------------------------------------------------------------------
+    // Main combination dispatcher
+    //------------------------------------------------------------------------
+    private void DetectCombination()                                  // Evaluates all hand rankings in priority order
     {
-        return observer.playerCombined
-            .Select(go => go.GetComponent<CardDisplay>())
-            .Where(cd => cd != null);
+        if      (IsQuintuple())     Debug.Log($"{side}: Quintuple");  // Check five-of-a-kind
+        else if (IsFourOfAKind())   Debug.Log($"{side}: Four-of-a-Kind"); // Check four-of-a-kind
+        else if (IsFullHouse())     Debug.Log($"{side}: Full House"); // Check full house
+        else if (IsThreeOfAKind())  Debug.Log($"{side}: Three-of-a-Kind"); // Check three-of-a-kind
+        else if (IsTwoPair())       Debug.Log($"{side}: Two Pair");   // Check two pairs
+        else if (IsSinglePair())    Debug.Log($"{side}: Single Pair");// Check single pair
+        else if (IsHighMeme())      Debug.Log($"{side}: High Meme");   // Always true, logs best meme type
+        
     }
 
-    private bool IsQuintuple()
-    {
-        // 5 of a kind can't happen with 3 table + 2 hand, but example:
-        return GetCombinedDisplays()
-            .GroupBy(cd => cd.cardData.cardType[0])
-            .Any(g => g.Count() == 5 && g.Any(cd => cd.currentLocation == CardLocation.PlayerHand));
-    }
+    //------------------------------------------------------------------------
+    // Helpers — data access
+    //------------------------------------------------------------------------
+    private IEnumerable<CardDisplay> Combined =>
+        (side == Side.Player ? observer.playerCombined : observer.aiCombined)
+        .Select(go => go.GetComponent<CardDisplay>())
+        .Where(cd => cd != null);
 
-    private bool IsFourOfAKind()
-    {
-        // 4 same type, at least one from player
-        return GetCombinedDisplays()
-            .GroupBy(cd => cd.cardData.cardType[0])
-            .Any(g => g.Count() == 4 && g.Any(cd => cd.currentLocation == CardLocation.PlayerHand));
-    }
+    private CardLocation RequiredHandLocation =>                      // Required location must belong to current side’s hand
+        side == Side.Player ? CardLocation.PlayerHand                 // Player’s hand location
+                            : CardLocation.AIHand;                    // AI’s hand location
+
+    private void Log(HandCombinations combo) =>
+        Debug.Log($"{side} ⇒ {combo}");
+
+    //------------------------------------------------------------------------
+    // Combination checks
+    //------------------------------------------------------------------------
+     private bool IsQuintuple() =>
+        Combined.GroupBy(cd => cd.cardData.cardType[0])
+                .Any(g => g.Count() == 5 &&
+                          g.Any(cd => cd.currentLocation == RequiredHandLocation));
+
+    private bool IsFourOfAKind() =>
+        Combined.GroupBy(cd => cd.cardData.cardType[0])
+                .Any(g => g.Count() == 4 &&
+                          g.Any(cd => cd.currentLocation == RequiredHandLocation));
 
     private bool IsFullHouse()
     {
-        var groups = GetCombinedDisplays()
-            .GroupBy(cd => cd.cardData.cardType[0]);
-
-        // three-of-a-kind group
-        bool hasThree = groups
-            .Any(g => g.Count() == 3 && g.Any(cd => cd.currentLocation == CardLocation.PlayerHand));
-        // pair group
-        bool hasTwo = groups
-            .Any(g => g.Count() == 2 && g.Any(cd => cd.currentLocation == CardLocation.PlayerHand));
-
+        var groups = Combined.GroupBy(cd => cd.cardData.cardType[0]);
+        bool hasThree = groups.Any(g => g.Count() == 3 &&
+                                        g.Any(cd => cd.currentLocation == RequiredHandLocation));
+        bool hasTwo   = groups.Any(g => g.Count() == 2 &&
+                                        g.Any(cd => cd.currentLocation == RequiredHandLocation));
         return hasThree && hasTwo;
     }
 
-    // Checks if there are exactly 3 cards of the same type,
-    // and at least one of them comes from the player's hand.
-    private bool IsThreeOfAKind()
-    {
-        // Get all CardDisplay components from the combined cards (player + table)
-        var groupedTypes = GetCombinedDisplays()
-            .GroupBy(cd => cd.cardData.cardType[0]); // Group by first card type
-
-        foreach (var group in groupedTypes)
-        {
-            // Check if exactly 3 cards of same type exist
-            if (group.Count() == 3)
-            {
-                // Ensure at least one of them is from the player's hand
-                if (group.Any(cd => cd.currentLocation == CardLocation.PlayerHand))
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
+    private bool IsThreeOfAKind() =>
+        Combined.GroupBy(cd => cd.cardData.cardType[0])
+                .Any(g => g.Count() == 3 &&
+                          g.Any(cd => cd.currentLocation == RequiredHandLocation));
 
     private bool IsTwoPair()
     {
-        // count how many valid pairs (count==2 AND at least one from player)
-        int validPairs = GetCombinedDisplays()
-            .GroupBy(cd => cd.cardData.cardType[0])
-            .Count(g => g.Count() == 2 && g.Any(cd => cd.currentLocation == CardLocation.PlayerHand));
-
-        return validPairs == 2;
+        int pairs = Combined.GroupBy(cd => cd.cardData.cardType[0])
+                            .Count(g => g.Count() == 2 &&
+                                        g.Any(cd => cd.currentLocation == RequiredHandLocation));
+        return pairs == 2;
     }
 
     private bool IsSinglePair()
     {
-        // exactly one valid pair
-        int validPairs = GetCombinedDisplays()
-            .GroupBy(cd => cd.cardData.cardType[0])
-            .Count(g => g.Count() == 2 && g.Any(cd => cd.currentLocation == CardLocation.PlayerHand));
-
-        return validPairs == 1;
+        int pairs = Combined.GroupBy(cd => cd.cardData.cardType[0])
+                            .Count(g => g.Count() == 2 &&
+                                        g.Any(cd => cd.currentLocation == RequiredHandLocation));
+        return pairs == 1;
     }
 
+    //------------------------------------------------------------------------
+    // High-Meme check (fallback ranking)
+    //------------------------------------------------------------------------
     private bool IsHighMeme()
     {
-        // if no other combination, pick the highest-ranked meme from player's contributions
-        Dictionary<Card.CardType, int> ranking = new Dictionary<Card.CardType, int>
+        // Manual ranking dictionary: lower value = stronger meme
+        var ranking = new Dictionary<Card.CardType, int>
         {
-            { Card.CardType.Sigma,     1 },
+            { Card.CardType.Sigma,      1 },
             { Card.CardType.Wholesome,  2 },
             { Card.CardType.NPC,        3 },
             { Card.CardType.Cringe,     4 },
-            { Card.CardType.Brainrot,   5 },
+            { Card.CardType.Brainrot,   5 }
         };
 
-        // only consider player's cards for HighMeme ranking
-        Card.CardType best = GetCombinedDisplays()
-            .Where(cd => cd.currentLocation == CardLocation.PlayerHand)
-            .Select(cd => cd.cardData.cardType[0])
-            .OrderBy(t => ranking[t])
-            .FirstOrDefault();
+        // Filter only cards that belong to the current hand (required location)
+        IEnumerable<Card.CardType> handTypes = Combined
+            .Where(cd => cd.currentLocation == RequiredHandLocation) // keep only own cards
+            .Select(cd => cd.cardData.cardType[0]);                  // project to type enum
 
-        Debug.Log("High meme type: " + best);
-        return true;
+        // In rare case the hand is empty (should not happen), default to worst type
+        Card.CardType bestType = handTypes
+            .DefaultIfEmpty(Card.CardType.Brainrot)  // avoid empty sequence error
+            .OrderBy(t => ranking[t])                // sort ascending by strength
+            .First();                                // pick strongest (lowest rank value)
+
+        // Output to console for debugging
+        Debug.Log($"{side} ⇒ High Meme ({bestType})");
+
+        return true; // Always returns true so DetectCombination() stops here
+    }
+
+    //-------------  High Meme fallback  -------------------------------------
+    private void LogHighMeme()
+    {
+        var ranking = new Dictionary<Card.CardType, int> {
+            { Card.CardType.Sigma, 1 },
+            { Card.CardType.Wholesome, 2 },
+            { Card.CardType.NPC, 3 },
+            { Card.CardType.Cringe, 4 },
+            { Card.CardType.Brainrot, 5 }
+        };
+
+        // Pick best meme type contributed by the required hand
+        var best = Combined
+            .Where(cd => cd.currentLocation == RequiredHandLocation)
+            .Select(cd => cd.cardData.cardType[0])
+            .DefaultIfEmpty(Card.CardType.Brainrot)  // Safety: avoid empty sequence
+            .OrderBy(t => ranking[t])
+            .First();
+
+        Debug.Log($"{side} ⇒ HighMeme ({best})");
     }
 }
