@@ -11,8 +11,8 @@ public class CombinationDetection : MonoBehaviour
     // ───────────────────────────────────────────────────────────── public data
     public enum Side { Player, AI }
 
-    [SerializeField] private Side      side;      // Which participant
-    [SerializeField] private Observer  observer;  // Provides combined lists
+    [SerializeField] private Side side;      // Which participant
+    [SerializeField] private Observer observer;  // Provides combined lists
 
     // ───────────────────────────────────────────────────── HandCombinations
     public enum HandCombinations
@@ -54,16 +54,25 @@ public class CombinationDetection : MonoBehaviour
     /// <summary>
     /// Fully evaluates the current hand and returns its best combination.
     /// </summary>
-    public HandCombinations Evaluate()
+    public HandCombinations Evaluate(out Card.CardType bestMeme)
     {
-        if (IsQuintuple())     return HandCombinations.Quintuple;
-        if (IsFourOfAKind())   return HandCombinations.FourOfAKind;
-        if (IsFullHouse())     return HandCombinations.FullHouse;
-        if (IsThreeOfAKind())  return HandCombinations.ThreeOfAKind;
-        if (IsTwoPair())       return HandCombinations.TwoPair;
-        if (IsSinglePair())    return HandCombinations.SinglePair;
+        if (IsQuintuple())     { bestMeme = default; return HandCombinations.Quintuple; }
+        if (IsFourOfAKind())   { bestMeme = default; return HandCombinations.FourOfAKind; }
+        if (IsFullHouse())     { bestMeme = default; return HandCombinations.FullHouse; }
+        if (IsThreeOfAKind())  { bestMeme = default; return HandCombinations.ThreeOfAKind; }
+        if (IsTwoPair())       { bestMeme = default; return HandCombinations.TwoPair; }
+        if (IsSinglePair())    { bestMeme = default; return HandCombinations.SinglePair; }
+
+        bestMeme = GetBestMemeType(GetCombinedCards());
         return HandCombinations.HighMeme;
     }
+
+    public HandCombinations Evaluate()
+    {
+        return Evaluate(out _); // sadece kombinasyonu döndür, meme türünü at
+    }
+
+
 
     /// <summary>
     /// Shortcut that evaluates and logs immediately (useful for quick tests).
@@ -144,4 +153,24 @@ public class CombinationDetection : MonoBehaviour
         var ownerPairs = groups.Where(g => g.Count() == 2 && g.Any(IsOwner));
         return ownerPairs.Count() == 1;
     }
+    
+    private Card.CardType GetBestMemeType(IEnumerable<CardDisplay> cards)
+    {
+        var ranking = new Dictionary<Card.CardType, int>
+        {
+            { Card.CardType.Sigma,     5 },
+            { Card.CardType.Wholesome, 4 },
+            { Card.CardType.NPC,       3 },
+            { Card.CardType.Cringe,    2 },
+            { Card.CardType.Brainrot,  1 }
+        };
+
+        return cards
+            .Where(cd => cd.currentLocation == OwnerLocation) // only hand cards
+            .Select(cd => cd.cardData.cardType[0])
+            .OrderByDescending(t => ranking[t])
+            .DefaultIfEmpty(Card.CardType.Brainrot)
+            .First();
+    }
+
 }

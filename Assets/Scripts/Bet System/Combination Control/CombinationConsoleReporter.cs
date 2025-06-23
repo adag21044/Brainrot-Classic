@@ -9,6 +9,7 @@ public class CombinationConsoleReporter : MonoBehaviour
     [Header("References")]
     [SerializeField] private CombinationDetection playerDetector; // Player instance
     [SerializeField] private CombinationDetection aiDetector;     // AI instance
+    Card.CardType _; 
 
     private void Update()
     {
@@ -19,10 +20,10 @@ public class CombinationConsoleReporter : MonoBehaviour
 
     private void PrintBothHands()
     {
-        var playerComb = playerDetector.Evaluate();
+        var playerComb = playerDetector.Evaluate(out _);
         Debug.Log($"PLAYER + Table ⇒ {playerComb}");
 
-        var aiComb     = aiDetector.Evaluate();
+        var aiComb     = aiDetector.Evaluate(out _);
         Debug.Log($"AI     + Table ⇒ {aiComb}");
     }
 }
