@@ -13,7 +13,7 @@ public class AIManager : MonoBehaviour
         if (drawnCard != null)
         {
             yield return new WaitForSeconds(0.5f);
-            aiHand.AddCardToHand(drawnCard);
+            aiHand.AddCardToHand(drawnCard, true); // true ⇒ AI hand
         }
     }
 }

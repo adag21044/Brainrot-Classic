@@ -23,21 +23,26 @@ public class HandManager : MonoBehaviour
 
     }
 
-    public void AddCardToHand(Card cardData)
+    // HandManager.cs
+    public void AddCardToHand(Card cardData, bool isAI)
     {
-        GameObject newCard = Instantiate(cardPrefab, handTransform.position, Quaternion.identity, handTransform);
+        // 1) Instantiate the visual card under this hand transform
+        GameObject newCard = Instantiate(cardPrefab, handTransform.position,
+                                        Quaternion.identity, handTransform);
+
         cardsInHand.Add(newCard);
 
-        var cardDisplay = newCard.GetComponent<CardDisplay>();
-        
-        CardLocation location = (gameObject.tag == "AIHand") ? CardLocation.AIHand : CardLocation.PlayerHand;
-        
-        // for AI FALSE for Player TRUE
-        bool isCardOpen = location == CardLocation.PlayerHand;
-        cardDisplay.SetCard(cardData, isCardOpen, location);
+        // 2) Prepare CardDisplay
+        var cardDisplay   = newCard.GetComponent<CardDisplay>();
+        CardLocation loc  = isAI ? CardLocation.AIHand : CardLocation.PlayerHand;
+        bool isCardOpen   = !isAI;               // AI cards start face-down
 
+        cardDisplay.SetCard(cardData, isCardOpen, loc);
+
+        // 3) Re-fan the hand
         UpdateHandVisuals();
     }
+
 
 
 

@@ -104,7 +104,7 @@ public class Observer : MonoBehaviour
     }
 
     // Combine AI Cards + Table Cards
-    private void CombineWithAI()
+    public void CombineWithAI()
     {
         aiCombined.Clear();
 
@@ -147,7 +147,7 @@ public class Observer : MonoBehaviour
     }
 
     // Combine Player Cards + Table Cards
-    private void CombineWithPlayer()
+    public void CombineWithPlayer()
     {
         playerCombined.Clear();
 

@@ -38,10 +38,11 @@ public class DeckManager : MonoBehaviour
         //Shuffle the deck
         ShuffleCards(allCards);
 
+        // Start() – initial deal (two cards each)
         for (int i = 0; i < 2; i++)
         {
-            DrawCard(playerHand);
-            DrawCard(aiHand);
+            DrawCard(playerHand, false); // Player
+            DrawCard(aiHand,     true ); // AI
         }
 
         DealTableCards(); // Open the card on the table
@@ -71,7 +72,8 @@ public class DeckManager : MonoBehaviour
         }
     }
 
-    public void DrawCard(HandManager handManager)
+    // Draw one card into the specified hand
+    public void DrawCard(HandManager handManager, bool isAI)
     {
         if (allCards.Count == 0)
         {
@@ -83,19 +85,18 @@ public class DeckManager : MonoBehaviour
             currentCardIndex = 0;
 
         Card nextCard = allCards[currentCardIndex];
-        handManager.AddCardToHand(nextCard);
+        handManager.AddCardToHand(nextCard, isAI);   // <-- pass ownership flag
 
-        // Remove the card from the deck
+        // Remove the drawn card
         allCards.RemoveAt(currentCardIndex);
 
         if (allCards.Count == 0)
             SetDeactiveDeckObject(deckObject);
 
         onDeckChanged?.Invoke(allCards.Count);
-
-        DeactivateDeckIfEmpty(); 
-
+        DeactivateDeckIfEmpty();
     }
+
 
     public Card GetNextCard()
     {

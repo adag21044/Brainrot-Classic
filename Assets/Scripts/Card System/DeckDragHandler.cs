@@ -68,8 +68,8 @@ public class DeckDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         if (distance <= snapDistance)
         {
-            // El bölgesine yakın: ekle
-            handManager.AddCardToHand(draggedCardData);
+            // Inside OnEndDrag, when dropped close to the hand area
+            handManager.AddCardToHand(draggedCardData, false); // false ⇒ Player hand
             Destroy(preview);
             preview = null;
 
