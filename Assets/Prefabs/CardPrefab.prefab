@@ -336,6 +336,7 @@ GameObject:
   - component: {fileID: 4670625780824168505}
   - component: {fileID: 4803069331360908519}
   - component: {fileID: 6017734934718631799}
+  - component: {fileID: 287523828219474927}
   m_Layer: 0
   m_Name: CardPrefab
   m_TagString: Untagged
@@ -387,6 +388,7 @@ MonoBehaviour:
   - {fileID: 7685816688116803482}
   - {fileID: 7685816688116803482}
   isOpen: 0
+  cardLocation: 0
   typeIcons:
   - {fileID: 6198060105290046391, guid: bddb9e3512726544186dd0ad6b54a012, type: 3}
   - {fileID: -4396136994341983667, guid: 9073ed5c82149674aad309af7c49330b, type: 3}
@@ -456,6 +458,18 @@ MonoBehaviour:
   playPoisition: {x: -600, y: 500, z: 0}
   glowEffect: {fileID: 6763851657052673884}
   playArrow: {fileID: 6748911389605934664}
+--- !u!114 &287523828219474927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163139686171101045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36284d7c37ae6a444aa99d43b6d93e69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2776997070591733113
 GameObject:
   m_ObjectHideFlags: 0

@@ -1061,7 +1061,7 @@ GameObject:
   - component: {fileID: 348140000}
   m_Layer: 5
   m_Name: AIHandPosition
-  m_TagString: Untagged
+  m_TagString: AIHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

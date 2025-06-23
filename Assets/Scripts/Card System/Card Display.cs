@@ -20,7 +20,7 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text damageText; // Text component displaying the damage range
     public Image[] typeImages; // One icon for each element/type the card has (max length set in Inspector)
     [SerializeField] public bool isOpen; // Determines whether the card is currently face‑up
-    //[SerializeField] public CardLocation cardLocation; // The location of the card in the game (e.g., PlayerHand, AIHand, Table, Deck)
+    [SerializeField] public CardLocation cardLocation; // The location of the card in the game (e.g., PlayerHand, AIHand, Table, Deck)
     [SerializeField] private Sprite[] typeIcons; // Type Icon
     public CardLocation currentLocation { get; private set; } // Current location of the card (e.g., PlayerHand, Table, etc.)
 
@@ -30,6 +30,7 @@ public class CardDisplay : MonoBehaviour
     {
         // Store location
         currentLocation = newLocation;
+        cardLocation    = newLocation;
 
         // Face-up only if the card is in the player's hand or on the table
         isOpen = newLocation == CardLocation.PlayerHand ||
@@ -72,6 +73,7 @@ public class CardDisplay : MonoBehaviour
         cardData = card;
         isOpen = open;
         currentLocation = location;
+        cardLocation    = location; 
         UpdateCardDisplay();
     }
 
@@ -89,6 +91,11 @@ public class CardDisplay : MonoBehaviour
     public bool IsInAIHand()
     {
         return currentLocation == CardLocation.AIHand;
+    }
+
+    public bool IsInDeck()
+    {
+        return currentLocation == CardLocation.Deck;
     }
 
 
