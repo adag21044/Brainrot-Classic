@@ -113,7 +113,8 @@ public class CombinationDetection : MonoBehaviour
             if (pair != null)
             {
                 // At least one of the 5 cards (in total) must come from hand
-                return trio.Any(IsOwner) || pair.Any(IsOwner);
+                return (trio.Count() + pair.Count() >= 5) && 
+                (trio.Any(IsOwner) || pair.Any(IsOwner));
             }
         }
         return false;

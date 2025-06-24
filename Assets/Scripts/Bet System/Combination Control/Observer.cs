@@ -9,19 +9,20 @@ public class Observer : MonoBehaviour
 
     public List<GameObject> playerCombined;
     public List<GameObject> aiCombined;
+    
 
     private void Start()
     {
         playerCombined = new List<GameObject>();
         aiCombined = new List<GameObject>();
-        
+
         // Initialize the positions if needed
         if (playerHandPosition == null)
             playerHandPosition = GameObject.Find("PlayerHandPosition");
-        
+
         if (aiHandPosition == null)
             aiHandPosition = GameObject.Find("AIHandPosition");
-        
+
         if (tablePosition == null)
             tablePosition = GameObject.Find("TablePosition");
     }
@@ -108,9 +109,6 @@ public class Observer : MonoBehaviour
     {
         aiCombined.Clear();
 
-        Debug.Log($"AIHandPosition has {aiHandPosition.transform.childCount} children.");
-
-
         for (int i = 0; i < aiHandPosition.transform.childCount; i++)
         {
             Transform child = aiHandPosition.transform.GetChild(i);
@@ -118,7 +116,9 @@ public class Observer : MonoBehaviour
 
             if (cardDisplay != null && cardDisplay.cardData != null)
             {
-                Debug.Log($"Combining AI Card {i} -> Name: {cardDisplay.cardData.cardName}");
+                //Debug.Log($"Combining AI Card {i} -> Name: {cardDisplay.cardData.cardName}");
+                cardDisplay.SetLocation(CardLocation.AIHand);
+                cardDisplay.UpdateCardDisplay();
                 aiCombined.Add(child.gameObject);
             }
         }
@@ -130,7 +130,7 @@ public class Observer : MonoBehaviour
 
             if (cardDisplay != null && cardDisplay.cardData != null)
             {
-                Debug.Log($"Combining Table Card {i} -> Name: {cardDisplay.cardData.cardName}");
+                //Debug.Log($"Combining Table Card {i} -> Name: {cardDisplay.cardData.cardName}");
                 aiCombined.Add(child.gameObject);
             }
         }
@@ -141,7 +141,7 @@ public class Observer : MonoBehaviour
             CardDisplay cardDisplay = card.GetComponent<CardDisplay>();
             if (cardDisplay != null && cardDisplay.cardData != null)
             {
-                Debug.Log($"Combined AI Card -> Name: {cardDisplay.cardData.cardName}");
+                //Debug.Log($"Combined AI Card -> Name: {cardDisplay.cardData.cardName}");
             }
         }
     }
@@ -159,6 +159,8 @@ public class Observer : MonoBehaviour
 
             if (cardDisplay != null && cardDisplay.cardData != null)
             {
+                cardDisplay.SetLocation(CardLocation.PlayerHand);
+                
                 playerCombined.Add(child.gameObject);
             }
         }
@@ -181,7 +183,7 @@ public class Observer : MonoBehaviour
             CardDisplay cardDisplay = card.GetComponent<CardDisplay>();
             if (cardDisplay != null && cardDisplay.cardData != null)
             {
-                Debug.Log($"Combined Player Card -> Name: {cardDisplay.cardData.cardName}");
+                //Debug.Log($"Combined Player Card -> Name: {cardDisplay.cardData.cardName}");
             }
         }
     }
